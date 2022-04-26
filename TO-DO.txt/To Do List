@@ -1,0 +1,25 @@
+TO DO/ideas:
+battle sim <----Current project
+boot up <-------problem for later
+damage nums <---- shouldnt be too hard
+
+FIX GUARANTEED HIT
+MULTIPLE ATTACKS
+CODE DEFENSE AND EVASION
+CODE TAKING DAMAGE
+CODE VICTORY AND DEFEAT
+WORRY ABOUT BOOTING UP LATER
+
+Attack:
+Multiple attacks until win, lose, or escape;
+TORPEDOES do 40 + 2 per student in WEAPONS BAY;(subject to change)
+
+
+Defend:
+SHIELD
+Set LFrost to 20 + 1 for each student in ENGINE ROOM;(subject to change)
+
+Evade:
+DODGE
+CAV DRIVE/ESCAPE
+add option to use cav drive to escape from battle(reset enemy health) and make repairs(reset everyone to default position and reset user's health)
