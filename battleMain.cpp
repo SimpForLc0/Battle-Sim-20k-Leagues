@@ -6,7 +6,28 @@
 
 using namespace std;
 
-studentHP ana("ANA DAKKAR", "DOLPHIN", "BRIDGE"), dev("DEV DAKKAR", "SHARK", "NULL"), gem("GEMINI TWAIN", "SHARK", "BRIDGE"), hal("HALIMAH NASSER", "DOLPHIN", "BRIDGE"), lee("LEE-ANN BEST", "DOLPHIN", "BRIDGE"), vir("VIRGIL ESPARZA", "DOLPHIN", "BRIDGE"), jack("JACK WU", "DOLPHIN", "BRIDGE"), jup("JUPITER", "ORIGINALLY STATIONED ON LINCOLN BASE", "KITCHEN"), nel("NELINHA DA SILVA", "CEPHALOPOD", "ENGINE ROOM"), fra("FRANKLIN COUCH", "ORCA", "MEDBAY"), dru("DRU CARDENAS", "SHARK", "WEAPONS BAY"), rob("ROBBIE BARR", "CEPHALOPOD", "ENGINE ROOM"), coop("COOPER DUNNE", "SHARK", "WEAPONS BAY"), kiya("KIYA JENSEN", "SHARK", "WEAPONS BAY"), elo("ELOISE MCMANNS", "SHARK", "WEAPONS BAY"), lin("LINZIE HUANG", "ORCA", "MEDBAY"), tia("TIA ROMERO", "CEPHALOPOD", "ENGINE ROOM"), mead("MEADOW NEWMAN", "CEPHALOPODS", "STAND-BY"), kay("KAY RAMSAY", "CEPHALOPODS", "ENGINE ROOM"), est("ESTER HARDING", "ORCA", "ADVISOR"), rhys("RHYS MORROW", "ORCA", "MEDBAY"), brig("BRIGID SALTER", "ORCA", "MEDBAY");
+studentHP ana("ANA DAKKAR", "DOLPHIN", "BRIDGE"),
+dev("DEV DAKKAR", "SHARK", "NULL"),
+gem("GEMINI TWAIN", "SHARK", "BRIDGE"),
+hal("HALIMAH NASSER", "DOLPHIN", "BRIDGE"),
+lee("LEE-ANN BEST", "DOLPHIN", "BRIDGE"),
+vir("VIRGIL ESPARZA", "DOLPHIN", "BRIDGE"),
+jack("JACK WU", "DOLPHIN", "BRIDGE"),
+jup("JUPITER", "ORIGINALLY STATIONED ON LINCOLN BASE", "KITCHEN"),
+nel("NELINHA DA SILVA", "CEPHALOPOD", "ENGINE ROOM"),
+fra("FRANKLIN COUCH", "ORCA", "MEDBAY"),
+dru("DRU CARDENAS", "SHARK", "WEAPONS BAY"),
+rob("ROBBIE BARR", "CEPHALOPOD", "ENGINE ROOM"),
+coop("COOPER DUNNE", "SHARK", "WEAPONS BAY"),
+kiya("KIYA JENSEN", "SHARK", "WEAPONS BAY"),
+elo("ELOISE MCMANNS", "SHARK", "WEAPONS BAY"),
+lin("LINZIE HUANG", "ORCA", "MEDBAY"),
+tia("TIA ROMERO", "CEPHALOPOD", "ENGINE ROOM"),
+mead("MEADOW NEWMAN", "CEPHALOPODS", "STAND-BY"),
+kay("KAY RAMSAY", "CEPHALOPODS", "ENGINE ROOM"),
+est("ESTER HARDING", "ORCA", "ADVISOR"),
+rhys("RHYS MORROW", "ORCA", "MEDBAY"),
+brig("BRIGID SALTER", "ORCA", "MEDBAY");
 
 studentHP Students[] = {ana, dev, gem, hal, lee, vir, jack, jup, nel, fra, dru, rob, coop, kiya, elo, lin, tia, mead, kay, est, rhys, brig};
 
@@ -52,7 +73,7 @@ int main() {
   }
   enemyWeaponNum = rand() % 7;
   //if(enemyWeaponNum == 0 || enemyWeaponNum == 1 || enemyWeaponNum == 2) {
-    enemyWeapon == "Leyden Cannons";
+    enemyWeapon = "Leyden Cannons";
   //} else if(enemyWeaponNum == 3 || enemyWeaponNum == 4 || enemyWeaponNum == 5) {
     //enemyWeapon == "Torpedo";
   //} else {
@@ -119,23 +140,24 @@ void startSim(battleSim firstSimObj, battleSim secSimObj) {
 }
 //--------------------------------------------------------------------
 void enemysAction(battleSim SimObjOne, battleSim SimObjTwo) {
-  if(enemyAction == "ATTACK") {
-    if(action != "EVADE") {
-        didEnemyHit = (rand() % 3) + 1;
-      } else {
-        didEnemyHit = (rand() % 2) + 1;
-      }
+  if(enemyAction == "ATTACK" && action != "EVADE") {
+      didEnemyHit = (rand() % 3) + 1;
+      cout << 1 << endl;
+    } else {
+      didEnemyHit = (rand() % 2) + 1;
+      cout << 2 << endl;
+    }
     if(enemyWeapon == "Leyden Cannons") {
       cout << "ENEMY FIRED LEYDEN CANNONS..." << endl;
       if(didEnemyHit == 1 || didEnemyHit == 2) {
+        //if we evade they get a guaranteed hit
         SimObjOne.subtractHealth(24);
       } else {
-        cout << "ENEMY MISSED!" << endl;
-        cout << SimObjOne.getHealth();
+        cout << "ENEMY MISSED!" << endl; 
       }
+      cout << SimObjOne.getObjName() << ": " << SimObjOne.getHealth() << endl;
     }
   }
-}
 //--------------------------------------------------------------------
 void startBattle(battleSim SimObjectOne, battleSim SimObjectTwo) {
   string weaponToUse;
