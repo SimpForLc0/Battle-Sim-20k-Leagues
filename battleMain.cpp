@@ -46,7 +46,12 @@ int whoDied;
 bool enemyDisabled = false;
 
 //Changes string to lowercase
-string lowercaseString(string s);
+string lowercaseString(string s) {
+  //Iterates through the string to lowercase each character
+  transform(s.begin(), s.end(), s.begin(), ::tolower); //Still can't understand the "::tolower" part//I can barely use it, it's really weird; long as it works it's fine
+  return s;
+}
+
 
 void viewRoom();
 //SIMULATION
@@ -118,14 +123,6 @@ int main() {
   }
 }
 //=========================================================================
-//don't define the function in main; declare it above, define it below;
-string lowercaseString(string s) {
-    //Iterates through the string to lowercase each character
-    transform(s.begin(), s.end(), s.begin(), ::tolower); //Still can't understand the "::tolower" part//I can barely use it, it's really weird; long as it works it's fine
-    return s;
-  }
-
-//-----------------------------------------------------------------
 
 void viewRoom() {
   string choice;
