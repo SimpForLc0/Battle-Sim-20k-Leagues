@@ -58,13 +58,7 @@ void startBattle(battleSim SimObjectOne, battleSim SimObjectTwo);//add shields a
 void enemysAction(battleSim SimObjOne, battleSim SimObjTwo);
 //--------------------------------------------------------------------
 int main() {
-
-  string lowercaseString(string s) {
-    //Iterates through the string to lowercase each character
-    transform(s.begin(), s.end(), s.begin(), ::tolower); //Still can't understand the "::tolower" part//I can barely use it, it's really weird; long as it works it's fine
-    return s;
-  }
-
+  
   nautilus.disable(false);
   aro.disable(false);
 
@@ -122,6 +116,14 @@ int main() {
     enemysAction(nautilus, aro);
   }
 }
+//=========================================================================
+//don't define the function in main; declare it above, define it below;
+string lowercaseString(string s) {
+    //Iterates through the string to lowercase each character
+    transform(s.begin(), s.end(), s.begin(), ::tolower); //Still can't understand the "::tolower" part//I can barely use it, it's really weird; long as it works it's fine
+    return s;
+  }
+
 //-----------------------------------------------------------------
 
 void viewRoom() {
