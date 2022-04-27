@@ -2,7 +2,7 @@
 #include <string>
 #include <stdlib.h>
 #include <stdio.h>
-#include "song.hpp"
+#include "bClassDefinitions.cpp"
 
 using namespace std;
 
@@ -34,14 +34,18 @@ studentHP Students[] = {ana, dev, gem, hal, lee, vir, jack, jup, nel, fra, dru, 
 battleSim nautilus("THE NAUTILUS", "ALIVE", 100), aro("THE ARONNAX", "ALIVE", 100);//STATUS: FULLY OPERATIONAL
 
 string action;
-int enemyActionNum;
 string enemyAction;
-int enemyWeaponNum;
 string enemyWeapon;
+int enemyActionNum;
+int enemyWeaponNum;
+
 int didUserHit;
 int didEnemyHit;
 int whoDied;
 bool enemyDisabled = false;
+
+//Changes string to lowercase
+string lowercaseString(string s);
 
 void viewRoom();
 //SIMULATION
@@ -54,6 +58,12 @@ void startBattle(battleSim SimObjectOne, battleSim SimObjectTwo);//add shields a
 void enemysAction(battleSim SimObjOne, battleSim SimObjTwo);
 //--------------------------------------------------------------------
 int main() {
+
+  string lowercaseString(string s) {
+    //Iterates through the string to lowercase each character
+    transform(s.begin(), s.end(), s.begin(), ::tolower); //Still can't understand the "::tolower" part
+    return s;
+  }
 
   nautilus.disable(false);
   aro.disable(false);
@@ -79,14 +89,18 @@ int main() {
   //} else {
     //enemyWeapon = "Cold-Fusion Torpedo";
   //}
-  didEnemyHit = (rand() % 2) + 1;//might need to redefine in funcs (1/2)
-  whoDied = rand() % 22;//torpedo will take out multiple
-  enemyDisabled = false;//leyden cannons will disable shields;
+  didEnemyHit = (rand() % 2) + 1; //might need to redefine in funcs (1/2)
+  whoDied = rand() % 22; //torpedo will take out multiple
+  enemyDisabled = false; //leyden cannons will disable shields;
+
+
 //TOUR THE NAUTILUS
   cout << endl << "WELCOME TO THE NAUTILUS" << endl << endl;
   cout << "BRIDGE\nWEAPONS BAY\nENGINE  ROOM\nMEDBAY\nLIBRARY\nKITCHEN\nBEDROOM\nSTORAGE\n\n";
  
   viewRoom();
+
+
   //simulation start (somewhere around here)
   cin.ignore();
   getline(cin, simStart);
@@ -135,7 +149,16 @@ void viewRoom() {
 
 void startSim(battleSim firstSimObj, battleSim secSimObj) {
   if(firstSimObj.getStatus() == "ALIVE" && secSimObj.getStatus() == "ALIVE") {
-    cout << "VESSEL: " << firstSimObj.getObjName() << endl << "STATUS: " << firstSimObj.getStatus() << endl << "HEALTH: " << firstSimObj.getHealth() << endl << endl << "VS." << endl << endl << "VESSEL: " << secSimObj.getObjName() << endl << "STATUS: " << secSimObj.getStatus() << endl << "HEALTH: " << secSimObj.getHealth() << endl << endl;
+
+    string firstVessel = "VESSEL: " << firstSimObj.getObjName();
+    string firstStatus = "STATUS: " << firstSimObj.getStatus();
+    string firstHealth = "HEALTH: " << firstSimObj.getHealth();
+
+    string secondVessel = "VESSEL: " << secSimObj.getObjName();
+    string secondStatus = "STATUS: " << secSimObj.getStatus();
+    string secondHealth = "HEALTH: " << secSimObj.getHealth()
+
+    cout << firstVessel << endl << firstStatus << endl << firstHealth << endl << endl << "VS." << endl << endl << secondVessel << endl << secondStatus << endl << secondHealth << endl << endl;
   }
 }
 //--------------------------------------------------------------------
@@ -161,18 +184,19 @@ void enemysAction(battleSim SimObjOne, battleSim SimObjTwo) {
 //--------------------------------------------------------------------
 void startBattle(battleSim SimObjectOne, battleSim SimObjectTwo) {
   string weaponToUse;
-  bool useLFrost = false;
   string shieldInput;
   string evadeInput;
   int damageDealt = 0;
+  bool useLFrost = false;
+
   SimObjectOne.setShield(0);
   SimObjectTwo.setShield(0);
-  
   
   cout << "Choose an action:" << endl << "ATTACK" << endl << "DEFEND" << endl << "EVADE" << endl << endl;
   
   cin >> action;
-  if(action == "ATTACK" || action == "attack" || action == "Attack") {
+
+  if(lowercaseString(action) == "attack") {
     cout << "Choose a weapon:" << endl << "Leyden Cannons" << endl << "Torpedoes" << endl << endl;
     cin.ignore();
     getline(cin, weaponToUse);
