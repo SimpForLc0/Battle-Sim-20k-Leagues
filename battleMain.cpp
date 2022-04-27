@@ -2,7 +2,8 @@
 #include <string>
 #include <stdlib.h>
 #include <stdio.h>
-#include "song.hpp"
+#include <algorithm>
+#include "battleClasses.hpp"
 
 using namespace std;
 
@@ -34,14 +35,17 @@ studentHP Students[] = {ana, dev, gem, hal, lee, vir, jack, jup, nel, fra, dru, 
 battleSim nautilus("THE NAUTILUS", "ALIVE", 100), aro("THE ARONNAX", "ALIVE", 100);//STATUS: FULLY OPERATIONAL
 
 string action;
-int enemyActionNum;
 string enemyAction;
-int enemyWeaponNum;
 string enemyWeapon;
+int enemyActionNum;
+int enemyWeaponNum;
+
 int didUserHit;
 int didEnemyHit;
 int whoDied;
 bool enemyDisabled = false;
+
+string lowercaseString(string s);
 
 void viewRoom();
 //SIMULATION
@@ -55,6 +59,8 @@ void enemysAction(battleSim SimObjOne, battleSim SimObjTwo);
 //--------------------------------------------------------------------
 int main() {
 
+  srand(time(NULL));
+  
   nautilus.disable(false);
   aro.disable(false);
 
@@ -72,11 +78,11 @@ int main() {
     didUserHit = rand() % 3;
   }
   enemyWeaponNum = rand() % 7;
-  //if(enemyWeaponNum == 0 || enemyWeaponNum == 1 || enemyWeaponNum == 2) {
+  if(enemyWeaponNum == 0 || enemyWeaponNum == 1 || enemyWeaponNum == 2 || enemyWeaponNum == 3) {
     enemyWeapon = "Leyden Cannons";
-  //} else if(enemyWeaponNum == 3 || enemyWeaponNum == 4 || enemyWeaponNum == 5) {
-    //enemyWeapon == "Torpedo";
-  //} else {
+  } else if(enemyWeaponNum == 4 || enemyWeaponNum == 5) {
+    enemyWeapon == "Torpedo";
+  //} else {not coded yet
     //enemyWeapon = "Cold-Fusion Torpedo";
   //}
   didEnemyHit = (rand() % 2) + 1;//might need to redefine in funcs (1/2)
@@ -108,6 +114,13 @@ int main() {
     enemysAction(nautilus, aro);
   }
 }
+//=================================================================
+string stringToLower(string s) {
+  transform(s.begin(), s.end(), s.begin(), ::tolower);
+    
+  return s;
+}
+  
 //-----------------------------------------------------------------
 
 void viewRoom() {
@@ -142,21 +155,47 @@ void startSim(battleSim firstSimObj, battleSim secSimObj) {
 void enemysAction(battleSim SimObjOne, battleSim SimObjTwo) {
   if(enemyAction == "ATTACK" && action != "EVADE") {
     didEnemyHit = (rand() % 3) + 1;
-    cout << 1 << endl;
-  } else {
-      didEnemyHit = (rand() % 2) + 1;
-      cout << 2 << endl;
+    cout << didEnemyHit << endl;
+    if(enemyWeapon == "Leyden Cannons") {
+      cout << "ENEMY FIRED LEYDEN CANNONS..." << endl;
+      if(didEnemyHit == 1 || didEnemyHit == 2) {
+        cout << "DAMAGE TO HULL SUSTAINED!" << endl;
+        SimObjOne.subtractHealth(24);
+      } else {
+        cout << "ENEMY MISSED!" << endl; 
+      }
+    } else if(enemyWeapon == "Torpedo") {//40-50 damage
+      cout << "INCOMING TORPEDO!!!" << endl;
+      if(didEnemyHit == 1 || didEnemyHit == 2) {
+        cout << "HEAVY DAMAGE SUSTAINED!" << endl;
+        SimObjOne.subtractHealth(50/*40*/);
+        //for() knock out 2-3 people;
+      } else {
+        cout << "TORPEDO AVOIDED" << endl;
+      }
     }
-  if(enemyWeapon == "Leyden Cannons") {
-    cout << "ENEMY FIRED LEYDEN CANNONS..." << endl;
-    if(didEnemyHit == 1 || didEnemyHit == 2) {
-      //if we evade they get a guaranteed hit
-      SimObjOne.subtractHealth(24);
-    } else {
-      cout << "ENEMY MISSED!" << endl; 
-    }
-    cout << SimObjOne.getObjName() << ": " << SimObjOne.getHealth() << endl
+  } else if(enemyAction == "ATTACK" && action == "EVADE") {
+      didEnemyHit = (rand() % 4) + 1;
+      cout << didEnemyHit << endl;
+      if(enemyWeapon == "Leyden Cannons") {
+        cout << "ENEMY FIRED LEYDEN CANNONS..." << endl;
+        if(didEnemyHit == 2) {
+          cout << "DAMAGE TO HULL SUSTAINED!" << endl;
+          SimObjOne.subtractHealth(24);
+        } else {
+          cout << "ENEMY MISSED!" << endl; 
+        }
+     } else if(enemyWeapon == "Torpedo") {
+       cout << "INCOMING TORPEDO!!" << endl;
+       if(didEnemyHit == 3) {
+         cout << "HEAVY DAMAGE SUSTAINED!" << endl;
+         SimObjOne.subtractHealth(50/*40*/);
+       } else {
+         cout << "TORPEDO EVADED" << endl;
+       }
+     }
   }
+  cout << SimObjOne.getObjName() << ": " << SimObjOne.getHealth() << "HP" << endl;
 }
 //--------------------------------------------------------------------
 void startBattle(battleSim SimObjectOne, battleSim SimObjectTwo) {
@@ -165,7 +204,7 @@ void startBattle(battleSim SimObjectOne, battleSim SimObjectTwo) {
   string shieldInput;
   string evadeInput;
   int damageDealt = 0;
-  SimObjectOne.setShield(0);
+  SimObjectOne.setShield(0);//need these called independently
   SimObjectTwo.setShield(0);
   
   
@@ -193,6 +232,6 @@ void startBattle(battleSim SimObjectOne, battleSim SimObjectTwo) {
   } /*else if(action == "DEFEND" || action == "Defend" || action == "defend") {
 
   } else if(action == "EVADE" || action == "Evade" || action == "evade") {
-
+add an escape with Cav Drive later
   }*/
 }
