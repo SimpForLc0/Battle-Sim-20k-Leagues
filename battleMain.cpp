@@ -45,7 +45,7 @@ int didEnemyHit;
 int whoDied;
 bool enemyDisabled = false;
 
-string lowercaseString(string s);
+string lowercase(string toLower);
 
 void viewRoom();
 //SIMULATION
@@ -115,12 +115,18 @@ int main() {
   }
 }
 //=================================================================
-string stringToLower(string s) {
-  transform(s.begin(), s.end(), s.begin(), ::tolower);
-    
-  return s;
+string lowercase(string toLower) {
+  string blank = toLower;
+  string lowerInput = "";
+  char array[blank.length()];
+  strcpy(array, blank.c_str());
+  char newChar;
+
+  for(int i = 0; i < blank.length(); i++) {
+    array[i] = tolower(array[i]);
+  } lowerInput = array;
+  return lowerInput;
 }
-  
 //-----------------------------------------------------------------
 
 void viewRoom() {
@@ -153,7 +159,7 @@ void startSim(battleSim firstSimObj, battleSim secSimObj) {
 }
 //--------------------------------------------------------------------
 void enemysAction(battleSim SimObjOne, battleSim SimObjTwo) {
-  if(enemyAction == "ATTACK" && action != "EVADE") {
+  if(enemyAction == "ATTACK" && lowerInput != "evade") {
     didEnemyHit = (rand() % 3) + 1;
     cout << didEnemyHit << endl;
     if(enemyWeapon == "Leyden Cannons") {
@@ -174,7 +180,7 @@ void enemysAction(battleSim SimObjOne, battleSim SimObjTwo) {
         cout << "TORPEDO AVOIDED" << endl;
       }
     }
-  } else if(enemyAction == "ATTACK" && action == "EVADE") {
+  } else if(enemyAction == "ATTACK" && lowerInput == "evade") {
       didEnemyHit = (rand() % 4) + 1;
       cout << didEnemyHit << endl;
       if(enemyWeapon == "Leyden Cannons") {
@@ -211,7 +217,8 @@ void startBattle(battleSim SimObjectOne, battleSim SimObjectTwo) {
   cout << "Choose an action:" << endl << "ATTACK" << endl << "DEFEND" << endl << "EVADE" << endl << endl;
   
   cin >> action;
-  if(action == "ATTACK" || action == "attack" || action == "Attack") {
+  lowerInput = lowercase(action);
+  if(lowerInput == "attack") {
     cout << "Choose a weapon:" << endl << "Leyden Cannons" << endl << "Torpedoes" << endl << endl;
     cin.ignore();
     getline(cin, weaponToUse);
@@ -229,9 +236,9 @@ void startBattle(battleSim SimObjectOne, battleSim SimObjectTwo) {
         cout << "MISSED" << endl;
       }
     }
-  } /*else if(action == "DEFEND" || action == "Defend" || action == "defend") {
+  } /*else if(lowerInput == "defend") {
 
-  } else if(action == "EVADE" || action == "Evade" || action == "evade") {
+  } else if(lowerInput == "evade") {
 add an escape with Cav Drive later
   }*/
 }
