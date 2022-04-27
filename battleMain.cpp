@@ -141,23 +141,23 @@ void startSim(battleSim firstSimObj, battleSim secSimObj) {
 //--------------------------------------------------------------------
 void enemysAction(battleSim SimObjOne, battleSim SimObjTwo) {
   if(enemyAction == "ATTACK" && action != "EVADE") {
-      didEnemyHit = (rand() % 3) + 1;
-      cout << 1 << endl;
-    } else {
+    didEnemyHit = (rand() % 3) + 1;
+    cout << 1 << endl;
+  } else {
       didEnemyHit = (rand() % 2) + 1;
       cout << 2 << endl;
     }
-    if(enemyWeapon == "Leyden Cannons") {
-      cout << "ENEMY FIRED LEYDEN CANNONS..." << endl;
-      if(didEnemyHit == 1 || didEnemyHit == 2) {
-        //if we evade they get a guaranteed hit
-        SimObjOne.subtractHealth(24);
-      } else {
-        cout << "ENEMY MISSED!" << endl; 
-      }
-      cout << SimObjOne.getObjName() << ": " << SimObjOne.getHealth() << endl;
+  if(enemyWeapon == "Leyden Cannons") {
+    cout << "ENEMY FIRED LEYDEN CANNONS..." << endl;
+    if(didEnemyHit == 1 || didEnemyHit == 2) {
+      //if we evade they get a guaranteed hit
+      SimObjOne.subtractHealth(24);
+    } else {
+      cout << "ENEMY MISSED!" << endl; 
     }
+    cout << SimObjOne.getObjName() << ": " << SimObjOne.getHealth() << endl
   }
+}
 //--------------------------------------------------------------------
 void startBattle(battleSim SimObjectOne, battleSim SimObjectTwo) {
   string weaponToUse;
