@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include "song.hpp"
+#include "battleClasses.hpp"
 //create new files as/when needed
 
 using namespace std;
