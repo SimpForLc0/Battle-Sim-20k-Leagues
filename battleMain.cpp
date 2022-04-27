@@ -2,6 +2,7 @@
 #include <string>
 #include <stdlib.h>
 #include <stdio.h>
+#include <algorithm>//transform
 #include "battleClasses.hpp"
 //don't include cpp only hpp needs to be included. cpps will be compiled together
 using namespace std;
