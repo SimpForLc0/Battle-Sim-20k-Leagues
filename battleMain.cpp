@@ -2,8 +2,8 @@
 #include <string>
 #include <stdlib.h>
 #include <stdio.h>
-#include "bClassDefinitions.cpp"
-
+#include "battleClasses.hpp"
+//don't include cpp only hpp needs to be included. cpps will be compiled together
 using namespace std;
 
 studentHP ana("ANA DAKKAR", "DOLPHIN", "BRIDGE"),
@@ -61,7 +61,7 @@ int main() {
 
   string lowercaseString(string s) {
     //Iterates through the string to lowercase each character
-    transform(s.begin(), s.end(), s.begin(), ::tolower); //Still can't understand the "::tolower" part
+    transform(s.begin(), s.end(), s.begin(), ::tolower); //Still can't understand the "::tolower" part//I can barely use it, it's really weird; long as it works it's fine
     return s;
   }
 
